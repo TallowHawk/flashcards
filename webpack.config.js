@@ -9,7 +9,7 @@ module.exports = {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
         globalObject: "(typeof self!='undefined'?self:global)",
-        publicPath: '/flashcards',
+        publicPath: '/',
     },
 
     devtool: 'eval-source-map',
