@@ -1,0 +1,75 @@
+.container {
+    width: 60%;
+    margin: 0 auto 40vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 1rem;
+}
+
+.container input {
+    font-size: 1.2rem;
+}
+
+.page-title {
+    justify-self: center;
+}
+
+.set-name {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.set-name input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.label {
+    display: none;
+}
+
+.add-card-template {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    background-color: #eeeeee;
+    border-radius: 4px;
+    padding: 1.5rem 1rem 1rem;
+    position: relative;
+}
+
+.term {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    height: 1.3rem;
+    padding: 0.5rem;
+}
+
+.definition {
+    resize: vertical;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 1rem;
+    padding: .5rem .3rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.delete {
+    background-image: url("../../assets/images/close.svg");
+    background-size: 100%;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.action-container {
+    display: flex;
+}
+
+.action-container :not(:last-child) {
+    margin-right: 0.875rem;
+}

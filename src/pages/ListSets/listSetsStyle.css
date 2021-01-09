@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 0 auto;
+}
+
+.options :not(:last-child) {
+    margin-right: 0.875rem;
+}
+
+.template {
+    border-radius: 4px;
+    border: 1px solid #d0d0d0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+    padding: 0.4rem 0.4rem;
+}
+
+.templateButtons {
+    height: 2rem;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+}
