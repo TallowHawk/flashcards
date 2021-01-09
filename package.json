@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./scripts/development.js"
+    "start": "node ./scripts/development.js",
+    "build": "node ./scripts/production.js"
   },
   "keywords": [],
   "author": "",
