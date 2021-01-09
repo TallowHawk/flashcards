@@ -2,6 +2,9 @@ const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const { NODE_ENV } = process.env;
+const isProduction = NODE_ENV === 'production'
+
 module.exports = {
     entry: './src/index.js',
     mode: 'development',
@@ -12,7 +15,7 @@ module.exports = {
         publicPath: '/',
     },
 
-    devtool: 'eval-source-map',
+    devtool: isProduction ? undefined : 'eval-source-map',
 
     devServer: {
         hot: true,
