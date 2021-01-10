@@ -1,9 +1,35 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import style from './style.css'
 
 const FlashCards = ({ set }) => {
     const [currentCard, setCurrentCard] = useState(0)
     const [showingTerm, setShowingTerm] = useState(true)
+
+    useEffect(() => {
+        const keyDown = (e) => {
+            switch (e.key) {
+                case 'ArrowRight': {
+                    stepCards(1)
+                    break;
+                }
+                case 'ArrowLeft': {
+                    stepCards(-1)
+                    break;
+                }
+                case 'ArrowDown':
+                case 'ArrowUp':
+                case ' ': {
+                    setShowingTerm(prevState => !prevState)
+                    break;
+                }
+            }
+        }
+
+        document.addEventListener('keydown', keyDown)
+        return () => {
+            document.removeEventListener('keydown', keyDown)
+        }
+    })
 
     const stepCards = (amount) => {
         setShowingTerm(true)
