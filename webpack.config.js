@@ -33,6 +33,10 @@ module.exports = {
         },
     },
 
+    optimization: {
+        minimize: isProduction,
+    },
+
     module: {
         rules: [
             {
