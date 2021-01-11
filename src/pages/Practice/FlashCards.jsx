@@ -1,9 +1,29 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useMemo, useState } from 'preact/hooks'
 import style from './style.css'
+
+function shuffle(array) {
+    let currentIndex = array.length
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        let randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        let temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
 
 const FlashCards = ({ set }) => {
     const [currentCard, setCurrentCard] = useState(0)
     const [showingTerm, setShowingTerm] = useState(true)
+    const cards = useMemo(() => shuffle(set.cards), [set])
 
     useEffect(() => {
         const keyDown = (e) => {
@@ -41,7 +61,7 @@ const FlashCards = ({ set }) => {
         })
     }
 
-    const card = set.cards[currentCard]
+    const card = cards[currentCard]
 
     return (
         <div class={style.flexColumn}>
