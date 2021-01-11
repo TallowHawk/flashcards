@@ -7,6 +7,12 @@
     grid-gap: 1rem;
 }
 
+.cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1.5rem;
+}
+
 .container input {
     font-size: 1.2rem;
 }

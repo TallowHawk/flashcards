@@ -89,7 +89,7 @@ const Create = ({ id }) => {
                     tabIndex={1}
                 />
             </div>
-            <div class={globalStyles.flexColumn}>
+            <div class={styles.cards}>
                 {cards.map((card, index) => {
                     const tabIndex = (num) => (3 * (index + 1)) + num + 1
                     return (
