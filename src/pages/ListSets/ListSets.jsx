@@ -15,8 +15,8 @@ const ListSets = () => {
         sets && typeof sets === 'object' && setSets(sets)
     }, [])
 
-    const goToSet = (id) => {
-        setLoc(`/practice/${id}`)
+    const goToSet = (id, starred = false) => {
+        setLoc(`/practice/${id}` + (starred ? '/starred' : ''))
     }
 
     const downloadSet = () => {
@@ -56,6 +56,12 @@ const ListSets = () => {
                             type="button"
                             value="Study"
                             onClick={() => goToSet(index)}
+                        />
+                        <input
+                            class={globalStyles.button}
+                            type="button"
+                            value="Study Starred"
+                            onClick={() => goToSet(index, true)}
                         />
                     </div>
                 </div>

@@ -1,10 +1,10 @@
 import styles from './style.css'
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useMemo, useState } from 'preact/hooks'
 import { get } from 'idb-keyval'
 import { useLocation } from 'wouter-preact'
 import FlashCards from './FlashCards'
 
-const Practice = ({ id }) => {
+const Practice = ({ id, starred = false }) => {
     const [, setLoc] = useLocation()
     const [set, setSet] = useState(null)
     useEffect(async () => {
@@ -16,9 +16,25 @@ const Practice = ({ id }) => {
         }
     }, [])
 
+    const filteredSet = useMemo(() => {
+        if(!set) {
+            return null
+        }
+
+        let filteredCards = set.cards
+        if (starred) {
+            filteredCards = set.cards.filter((card) => card.starred)
+        }
+        if (filteredCards.length === 0) {
+            filteredCards = set.cards
+        }
+        set.cards = filteredCards
+        return set
+    }, [set])
+
     return (
         <div class={styles.container}>
-            {set && <FlashCards set={set} />}
+            {set && <FlashCards set={filteredSet} />}
         </div>
     )
 }

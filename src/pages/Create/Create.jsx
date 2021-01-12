@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'preact/hooks'
-import closeIcon from '../../assets/images/close.svg'
 import globalStyles from '../../styles.css'
 import styles from './styles.css'
 import { set, get, del } from 'idb-keyval'
@@ -11,6 +10,7 @@ const Create = ({ id }) => {
     const [cards, setCards] = useState([{
         term: '',
         definition: '',
+        starred: false,
     }])
 
     useEffect(async () => {
@@ -22,7 +22,6 @@ const Create = ({ id }) => {
         } else {
             cards = await get('temp')
         }
-        console.log(cards)
         cards && setCards(cards)
     }, [])
 
@@ -46,6 +45,7 @@ const Create = ({ id }) => {
             {
                 term: '',
                 definition: '',
+                starred: false,
             }
         ])
     }
@@ -91,7 +91,7 @@ const Create = ({ id }) => {
             </div>
             <div class={styles.cards}>
                 {cards.map((card, index) => {
-                    const tabIndex = (num) => (3 * (index + 1)) + num + 1
+                    const tabIndex = (num) => (4 * (index + 1)) + num + 1
                     return (
                         <div class={styles.addCardTemplate}>
                             <label class={styles.label} htmlFor="term">Term</label>
@@ -112,13 +112,20 @@ const Create = ({ id }) => {
                                 tabIndex={(tabIndex(2))}
                                 onInput={(e) => updateCard(index, 'definition', e.currentTarget.value)}
                             >
-                            {card.definition}
-                        </textarea>
+                                {card.definition}
+                            </textarea>
+                            <div
+                                class={`${card.starred ? styles.starred : ''} ${styles.star}`}
+                                role={"button"}
+                                aria-roledescription="Stars current card"
+                                tabIndex={tabIndex(3)}
+                                onClick={() => updateCard(index, 'starred', !card.starred)}
+                            />
                             <div
                                 class={styles.delete}
                                 role="button"
                                 aria-roledescription="Deletes current card"
-                                tabIndex={tabIndex(3)}
+                                tabIndex={tabIndex(4)}
                                 onClick={() => removeCard(index)}
                             />
                         </div>
