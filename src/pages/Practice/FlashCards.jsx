@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'preact/hooks'
 import style from './style.css'
 
+// Fisher - Yates shuffle https://bost.ocks.org/mike/shuffle/
 function shuffle(array) {
     let currentIndex = array.length
 
