@@ -20,7 +20,12 @@ const ListSets = () => {
         setLoc(`/practice/${ids.join(',')}` + (starred ? '/starred' : ''))
     }
 
-    const selectedItems = useMemo(() => sets.filter((set) => set.selected).map((_, idx) => idx), [sets])
+    const selectedItems = useMemo(() => sets.reduce((acc, set, index) => {
+        if (set.selected) {
+            acc.push(index)
+        }
+        return acc
+    }, []), [sets])
 
     const downloadSet = () => {
         const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(sets))}`
