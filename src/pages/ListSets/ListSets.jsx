@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useMemo, useState } from 'preact/hooks'
 import { get } from 'idb-keyval'
 import globalStyles from '../../styles.css'
 import styles from './listSetsStyle.css'
 import { useLocation } from 'wouter-preact'
 import ImportSet from './ImportSet'
+import { cx } from '../../util/styles'
 
 const ListSets = () => {
     const [showImportModal, setShowImportModal] = useState(false)
@@ -15,9 +16,11 @@ const ListSets = () => {
         sets && typeof sets === 'object' && setSets(sets)
     }, [])
 
-    const goToSet = (id, starred = false) => {
-        setLoc(`/practice/${id}` + (starred ? '/starred' : ''))
+    const goToSet = (ids, starred = false) => {
+        setLoc(`/practice/${ids.join(',')}` + (starred ? '/starred' : ''))
     }
+
+    const selectedItems = useMemo(() => sets.filter((set) => set.selected).map((_, idx) => idx), [sets])
 
     const downloadSet = () => {
         const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(sets))}`
@@ -42,12 +45,22 @@ const ListSets = () => {
                 <input class={globalStyles.button} type="button" value="Download sets" onClick={downloadSet}/>
                 <input class={globalStyles.button} type="button" value="Import sets" onClick={() => setShowImportModal(true)}/>
                 <input class={globalStyles.button} type="button" value="Add Set" onClick={() => setLoc('/create')} />
+                {selectedItems.length > 1 && <input class={cx(globalStyles.button, styles.specialButton)} type="button" value="Study Multiple" onClick={() => goToSet(selectedItems)}/>}
             </div>
             {sets.length === 0 && (
                 <p>Nothing yet :)</p>
             )}
             {sets.map((set, index) => (
-                <div class={styles.template} key={`Set-${index}`}>
+                <div
+                    class={cx(styles.template, styles.selectable, set.selected ? styles.selected : '')}
+                    key={`Set-${index}`}
+                    onClick={() => {
+                        setSets(prevState => {
+                            prevState[index].selected = !prevState[index].selected
+                            return [...prevState]
+                        })
+                    }}
+                >
                     <h4>{set.name}</h4>
                     <div class={styles.templateButtons}>
                         <input class={globalStyles.button} type="button" value="Edit" onClick={() => setLoc(`/edit/${index}`)}/>
@@ -55,13 +68,13 @@ const ListSets = () => {
                             className={globalStyles.button}
                             type="button"
                             value="Study"
-                            onClick={() => goToSet(index)}
+                            onClick={() => goToSet([index])}
                         />
                         <input
                             class={globalStyles.button}
                             type="button"
                             value="Study Starred"
-                            onClick={() => goToSet(index, true)}
+                            onClick={() => goToSet([index], true)}
                         />
                     </div>
                 </div>

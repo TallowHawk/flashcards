@@ -37,8 +37,8 @@ const Root = () => {
                     <Route path="/edit/:id">
                         {params => <Create id={params.id}/>}
                     </Route>
-                    <Route path="/practice/:id/:starred?">
-                        {params => <Practice id={params.id} starred={params.starred} />}
+                    <Route path="/practice/:ids/:starred?">
+                        {params => <Practice ids={params.ids} starred={params.starred} />}
                     </Route>
                     <Route path="/" component={ListSets}/>
                 </Switch>

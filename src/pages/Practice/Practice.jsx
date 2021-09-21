@@ -4,37 +4,37 @@ import { get } from 'idb-keyval'
 import { useLocation } from 'wouter-preact'
 import FlashCards from './FlashCards'
 
-const Practice = ({ id, starred = false }) => {
+const Practice = ({ ids, starred = false }) => {
     const [, setLoc] = useLocation()
-    const [set, setSet] = useState(null)
+    const [cards, cardsSet] = useState(null)
     useEffect(async () => {
         const sets = await get('sets')
         if (sets === null) {
             setLoc('/')
         } else {
-            setSet(sets[id])
+            const combinedSet = ids.split(',').flatMap((id) => sets[id].cards)
+            cardsSet(combinedSet)
         }
     }, [])
 
-    const filteredSet = useMemo(() => {
-        if(!set) {
+    const filteredCards = useMemo(() => {
+        if(!cards) {
             return null
         }
 
-        let filteredCards = set.cards
+        let filteredCards = cards
         if (starred) {
-            filteredCards = set.cards.filter((card) => card.starred)
+            filteredCards = cards.filter((card) => card.starred)
         }
         if (filteredCards.length === 0) {
-            filteredCards = set.cards
+            filteredCards = cards
         }
-        set.cards = filteredCards
-        return set
-    }, [set])
+        return filteredCards
+    }, [cards])
 
     return (
         <div class={styles.container}>
-            {set && <FlashCards set={filteredSet} />}
+            {cards && <FlashCards cards={filteredCards} />}
         </div>
     )
 }

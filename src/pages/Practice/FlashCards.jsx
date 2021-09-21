@@ -21,10 +21,10 @@ function shuffle(array) {
     return array;
 }
 
-const FlashCards = ({ set }) => {
+const FlashCards = ({ cards }) => {
     const [currentCard, setCurrentCard] = useState(0)
     const [showingTerm, setShowingTerm] = useState(true)
-    const cards = useMemo(() => shuffle(set.cards), [set])
+    const shuffledCards = useMemo(() => shuffle(cards), [cards])
 
     useEffect(() => {
         const keyDown = (e) => {
@@ -57,12 +57,12 @@ const FlashCards = ({ set }) => {
         setCurrentCard(prevCurrentCard => {
             const newState = prevCurrentCard + amount
             return newState < 0 ? 0 :
-                newState === set.cards.length ? set.cards.length - 1 :
+                newState === cards.length ? cards.length - 1 :
                 newState
         })
     }
 
-    const card = cards[currentCard]
+    const card = shuffledCards[currentCard]
 
     return (
         <div class={style.flexColumn}>

@@ -31,3 +31,18 @@
     grid-gap: 1rem;
     grid-template-columns: 1fr 1fr 1fr;
 }
+
+.selectable:hover {
+    border: 1px solid #727272;
+    background-color: #d7d7d7;
+    cursor: pointer;
+}
+
+.selected {
+    border: 1px solid #a6a6a6;
+    background-color: #eeeeee;
+}
+
+.specialButton {
+    background-color: #e3bebe;
+}
