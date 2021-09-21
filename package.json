@@ -30,5 +30,6 @@
     "webpack-cli": "^4.3.1",
     "webpack-dev-server": "^3.11.1",
     "wouter-preact": "^2.7.0"
-  }
+  },
+  "dependencies": {}
 }

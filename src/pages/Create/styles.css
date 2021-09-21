@@ -7,6 +7,12 @@
     grid-gap: 1rem;
 }
 
+@media screen and (max-width: 1000px) {
+    .container {
+        width: 90%;
+    }
+}
+
 .cards {
     display: grid;
     grid-template-columns: 1fr;

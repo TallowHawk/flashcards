@@ -5,6 +5,12 @@
     margin: 0 auto;
 }
 
+@media screen and (max-width: 1000px) {
+    .container {
+        width: 90%;
+    }
+}
+
 .options :not(:last-child) {
     margin-right: 0.875rem;
 }

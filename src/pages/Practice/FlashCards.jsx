@@ -50,7 +50,7 @@ const FlashCards = ({ set }) => {
         return () => {
             document.removeEventListener('keydown', keyDown)
         }
-    })
+    }, [setShowingTerm])
 
     const stepCards = (amount) => {
         setShowingTerm(true)
